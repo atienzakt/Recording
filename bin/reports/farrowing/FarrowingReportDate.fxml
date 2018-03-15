@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minWidth="1300.0" stylesheets="@text.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="1300.0">
+         <items>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+               <items>
+                  <AnchorPane>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" text="FARROWING RECORD BY PERIOD" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="FarrowReportStartEnd" alignment="CENTER" contentDisplay="CENTER" layoutY="45.0" prefHeight="35.0" prefWidth="1298.0" text="Farrowing Period: From 00/00/0000 to 00/00/0000" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane stylesheets="@text.css">
+                     <children>
+                        <TableView id="FarrowReportTable" fx:id="FarrowReportTable" layoutY="14.0" minHeight="600.0" minWidth="1300.0" stylesheets="@text.css" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
+              <items>
+                  <TextArea id="FarrPerformanceText1" fx:id="FarrPerformanceText1" minHeight="200.0" minWidth="500.0" prefHeight="200.0" prefWidth="550.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea id="FarrPerformanceText2" fx:id="FarrPerformanceText2" minHeight="200.0" minWidth="500.0" prefHeight="200.0" prefWidth="550.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+              </items>
+            </SplitPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

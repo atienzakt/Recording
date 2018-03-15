@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" prefWidth="1200.0" stylesheets="@text.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+         <items>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+               <items>
+                  <AnchorPane maxHeight="-Infinity" prefHeight="25.0" prefWidth="1256.0">
+                     <children>
+                        <Label id="FarrowReportSow" fx:id="FarrowReportSow" alignment="CENTER" contentDisplay="TOP" layoutX="-2.0" layoutY="28.0" text="Sow No: AAAAA" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="FarrowReportBreed" fx:id="FarrowReportBreed" layoutX="1041.0" layoutY="39.0" prefHeight="21.0" prefWidth="216.0" text="Breed:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="FarrowReportBirthdate" fx:id="FarrowReportBirthdate" layoutX="1041.0" layoutY="18.0" prefHeight="21.0" prefWidth="216.0" text="Date of Birth:" AnchorPane.rightAnchor="-1.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="FarrowReportOrigin" fx:id="FarrowReportOrigin" layoutX="1040.0" layoutY="58.0" prefHeight="21.0" prefWidth="216.0" text="Origin:" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" text="SOW FARROWING RECORD" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="1.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <TableView fx:id="FarrowReportTable" layoutX="6.0" layoutY="-1.0" minHeight="561.0" prefHeight="601.0" prefWidth="1250.0" stylesheets="@../farrowing/text.css" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5" maxHeight="-Infinity" prefHeight="200.0" prefWidth="1000.0" SplitPane.resizableWithParent="false">
+               <items>
+                  <TextArea id="FarrPerformanceText" fx:id="FarrPerformanceText">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea id="BreedPerformanceText" fx:id="BreedPerformanceText">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+               </items>
+            </SplitPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
