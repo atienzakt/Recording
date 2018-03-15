@@ -1,5 +1,6 @@
 package extras;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.joda.time.Interval;
 import model.BreedingRow;
 import model.Sow;
 import record.BreedingRecord;
+import record.FarrowingRecord;
 import record.SowRecord;
 
 public class PregnancyRemarksChecker {
@@ -24,13 +26,6 @@ public class PregnancyRemarksChecker {
 												.collect(Collectors.toList());
 			
 			if(breedingList.size()>1) {
-//				System.out.println(s.getSowNo());
-//				for(BreedingRow br:breedingList) {
-//					if(br.getPregnancyRemarks().equals("+")) {
-//						System.out.println(br.getDateBreed()+ " |||| "+br.getPregnancyRemarks());
-//					}
-//				}
-				
 				for(int i =1;i<breedingList.size();i++) {
 					
 					Interval interval = new Interval(breedingList.get(i).getDateBreed().getTime(), breedingList.get(i-1).getDateBreed().getTime());
@@ -40,6 +35,21 @@ public class PregnancyRemarksChecker {
 						break;
 					}
 				
+				}
+			}
+			
+			List<BreedingRow> breedingListDate = breedingList.stream()
+					.filter(br -> {
+						Calendar todayMinusAWeek = Calendar.getInstance();
+						todayMinusAWeek.add(Calendar.DATE, -14);
+						Calendar due = Calendar.getInstance();
+						due.setTime(br.getFarrowDueDate());
+						return due.before(todayMinusAWeek);
+					}).collect(Collectors.toList());
+			
+			for(BreedingRow b:breedingListDate) {
+				if(null == FarrowingRecord.findRefNo(b.getRefNo())) {
+					System.out.println("Due Date A week before today without Farrowing: "+ b.getRefNo() + " Sow No. "+b.getSowNo().getSowNo());
 				}
 			}
 		}
