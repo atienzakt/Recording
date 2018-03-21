@@ -103,8 +103,9 @@ public class FarrowingRecordParserCSV {
 			String remarks = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
 			f.setComments(remarks);
 			
-			if((remarks.toLowerCase().contains("disease") || remarks.toLowerCase().contains("cull")) && !SowRecord.isDiseased(sowNo)) {
-				SowRecord.diseasedSowList2.add(SowRecord.getSow(sowNo));
+			if((remarks.toLowerCase().contains("disease") 
+					|| remarks.toLowerCase().contains("cull")) && !SowRecord.isDiseased(sowNo)) {
+				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
 			}
 
 			f.setBreedingRow(BreedingRecord.findRefNo(refNo));

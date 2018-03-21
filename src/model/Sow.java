@@ -8,6 +8,7 @@ public class Sow {
 	private String origin;
 	private String breed;
 	private String parity;
+	private String status;
 
 	public Sow(String sowNo) {
 		this.sowNo = sowNo;
@@ -47,6 +48,15 @@ public class Sow {
 
 	public void setParity(String parity) {
 		this.parity = parity;
+	}
+
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

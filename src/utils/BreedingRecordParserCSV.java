@@ -131,7 +131,7 @@ public class BreedingRecordParserCSV {
 			
 			String status = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
 			if(!status.trim().equals("") && !SowRecord.isDiseased(sowNo)) {
-				SowRecord.diseasedSowList2.add(SowRecord.getSow(sowNo));
+				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
 			}
 			BreedingRecord.breedingList.add(br);
 

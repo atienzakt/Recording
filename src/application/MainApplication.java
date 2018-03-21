@@ -2,23 +2,24 @@ package application;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 
+import org.apache.poi.util.SystemOutLogger;
+import org.joda.time.Days;
+
+import extras.BreedingFarrowingConsistencyChecker;
 import extras.ParityChecker;
 import extras.PregnancyRemarksChecker;
+import extras.StatusChecker;
+import extras.WeanChecker;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,7 +40,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import model.Boar;
 import model.BreedingRow;
 import model.Sow;
 import record.BoarRecord;
@@ -49,13 +49,14 @@ import record.SowRecord;
 import reports.breeding.BreedingReportView;
 import reports.farrowing.FarrowingReportView;
 import reports.performance.BreedingPerformanceView;
+import reports.status.StatusReportView;
 import utils.BreedingRecordParserCSV;
 import utils.CalendarMonthPair;
 import utils.DateFormat;
 import utils.DatePickerFormatter;
-import utils.DiseasedParserCSV;
 import utils.FarrowingRecordParserCSV;
 import utils.FromToDatePair;
+import utils.RemovePoint;
 
 /*TODO 
  * 1) implement separate event handler 
@@ -68,6 +69,7 @@ public class MainApplication extends Application implements EventHandler<ActionE
 	protected BreedingReportView breedingReportView = new BreedingReportView();
 	protected FarrowingReportView farrowingReportView = new FarrowingReportView();
 	protected BreedingPerformanceView breedingPerformanceView = new BreedingPerformanceView();
+	protected StatusReportView statusReportView = new StatusReportView();
 	protected Button findBreedingBySow;
 	protected Button findBreedingByBoar;
 	protected Button findBreedingByDate;
@@ -76,6 +78,7 @@ public class MainApplication extends Application implements EventHandler<ActionE
 	protected Button performanceButton;
 	protected Button monthlyBreedingReportButton;
 	protected Button monthlyFarrowingReportButton;
+	protected Button statusReportButton;
 	
 
 	@Override
@@ -87,8 +90,9 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		SowRecord.setParities();
 		PregnancyRemarksChecker.pregnancyCheck();
 		ParityChecker.parityCheck();
-
-		
+		StatusChecker.setAndCheckStatus();
+		BreedingFarrowingConsistencyChecker.check();
+		WeanChecker.check();
 
 		initUI(primaryStage);
 
@@ -106,8 +110,9 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		performanceButton = new Button("Breeding Performance");
 		monthlyBreedingReportButton = new Button("Monthly Breeding Report");
 		monthlyFarrowingReportButton = new Button("Monthly Farrowing Report");
+		statusReportButton = new Button("Status Report");
 		root.getChildren().addAll(findBreedingBySow, findBreedingByDate, findFarrowingBySow,findBreedingByBoar, findFarrowingByDate,
-				performanceButton,monthlyBreedingReportButton,monthlyFarrowingReportButton);
+				performanceButton,monthlyBreedingReportButton,monthlyFarrowingReportButton,statusReportButton);
 
 		findFarrowingBySow.setOnAction(this);
 
@@ -124,6 +129,8 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		monthlyBreedingReportButton.setOnAction(this);
 		
 		monthlyFarrowingReportButton.setOnAction(this);
+		
+		statusReportButton.setOnAction(this);
 		
 		Scene scene = new Scene(root, 750, 750);
 		stage.setScene(scene);
@@ -308,6 +315,13 @@ public class MainApplication extends Application implements EventHandler<ActionE
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
+			}
+			else if (source == statusReportButton) {
+				try {
+					statusReportView.createStatusReport();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		}

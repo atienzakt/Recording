@@ -8,6 +8,7 @@ import org.joda.time.Days;
 
 import javafx.beans.property.SimpleStringProperty;
 import model.FarrowingRow;
+import record.SowRecord;
 import utils.RemovePoint;
 
 public class FarrowingReportRow {
@@ -19,7 +20,7 @@ public class FarrowingReportRow {
 	protected SimpleStringProperty sb;
 	protected SimpleStringProperty mm;
 	protected SimpleStringProperty abw;
-	protected SimpleStringProperty weanCount;
+	//protected SimpleStringProperty weanCount;
 	protected SimpleStringProperty weanDate;
 	protected SimpleStringProperty aww;
 	protected SimpleStringProperty comment;
@@ -37,8 +38,22 @@ public class FarrowingReportRow {
 		sb = new SimpleStringProperty(fr.getSb());
 		mm = new SimpleStringProperty(fr.getMm());
 		abw = new SimpleStringProperty(fr.getAbw());
-		weanCount = new SimpleStringProperty(fr.getTotalWean());
-		weanDate = new SimpleStringProperty((null == fr.getWeanDate()) ? "" : sdf.format(fr.getWeanDate()));
+		//weanCount = new SimpleStringProperty(fr.getTotalWean());
+		if(fr.getSowNo().getSowNo().equals("08550")) {
+			System.out.println(fr.getSowNo().getStatus());
+		}
+		if(fr.getWeanDate() == null) {
+			if(SowRecord.isDiseased(fr.getSowNo().getSowNo()) || !fr.getSowNo().getStatus().equalsIgnoreCase("lactating")){
+				weanDate = new SimpleStringProperty("N/A");
+			}
+			else {
+				weanDate = new SimpleStringProperty("");
+			}
+		}
+		else {
+			weanDate = new SimpleStringProperty(sdf.format(fr.getWeanDate()));
+		}
+		
 		aww = new SimpleStringProperty(fr.getAww());
 		comment = new SimpleStringProperty(fr.getComments());
 		dateBreed = new SimpleStringProperty(
@@ -66,10 +81,6 @@ public class FarrowingReportRow {
 
 	public String getMm() {
 		return RemovePoint.remove(mm.get());
-	}
-
-	public String getWeanCount() {
-		return RemovePoint.remove(weanCount.get());
 	}
 
 	public String getWeanDate() {

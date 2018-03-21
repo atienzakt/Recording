@@ -16,7 +16,7 @@ public abstract class FarrowingReportColumn {
 	public final String sb = "sb";
 	public final String mm = "mm";
 	public final String abw = "abw";
-	public final String weanCount = "weanCount";
+	//public final String weanCount = "weanCount";
 	public final String weanDate = "weanDate";
 	public final String aww = "aww";
 	public final String comment = "comment";
@@ -29,9 +29,9 @@ public abstract class FarrowingReportColumn {
 		farrowReportColumnData = new ArrayList<>();
 		
 		farrowReportColumnData.add(new HeaderParameterPair("DATE FARROW", dateFarrow));
-		farrowReportColumnData.add(new HeaderParameterPair("DATE BREED.", dateBreed));
+		farrowReportColumnData.add(new HeaderParameterPair("DATE BREED", dateBreed));
 		farrowReportColumnData.add(new HeaderParameterPair("REF NO.", refNo));
-		farrowReportColumnData.add(new HeaderParameterPair("PERIOD", peroid));
+		farrowReportColumnData.add(new HeaderParameterPair("GESTATING DAYS", peroid));
 		farrowReportColumnData.add(new HeaderParameterPair("BOAR USED", boarUsed));
 		farrowReportColumnData.add(new HeaderParameterPair("TOTAL BIRTH", totalBirth));
 		farrowReportColumnData.add(new HeaderParameterPair("LIVE BIRTH", liveBirth));
@@ -39,8 +39,8 @@ public abstract class FarrowingReportColumn {
 		farrowReportColumnData.add(new HeaderParameterPair("SB", sb));
 		farrowReportColumnData.add(new HeaderParameterPair("AVE. BIRTH WEIGHT", abw));
 		//farrowReportColumnData.add(new HeaderParameterPair("Times Inseminated", breedTimes));
-		farrowReportColumnData.add(new HeaderParameterPair("WEANED PIGLETS", weanCount));
-		farrowReportColumnData.add(new HeaderParameterPair("WEAN DATE", weanDate));
+		//farrowReportColumnData.add(new HeaderParameterPair("WEANED PIGLETS", weanCount));
+		farrowReportColumnData.add(new HeaderParameterPair("DATE WEANED", weanDate));
 		farrowReportColumnData.add(new HeaderParameterPair("COMMENTS", comment));
 	}
 }

@@ -20,8 +20,8 @@ public class BreedingReportColumnSow extends BreedingReportColumn {
 	@Override
 	public void setupColumn() {
 		super.setupColumn();		
-		breederReportColumnData.add(5,new HeaderParameterPair("BOAR USED", boarUsed));
-		breederReportColumnData.add(7,new HeaderParameterPair("DATE WEANED", dateWean));		
+		breederReportColumnData.add(4,new HeaderParameterPair("BOAR USED", boarUsed));
+		breederReportColumnData.add(9,new HeaderParameterPair("DATE WEANED", dateWean));		
 	}
 
 	public List<TableColumn<BreedingReportRowSow, String>> getBreedingReportColumns() {

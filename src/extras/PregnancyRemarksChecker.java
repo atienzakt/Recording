@@ -41,7 +41,7 @@ public class PregnancyRemarksChecker {
 			List<BreedingRow> breedingListDate = breedingList.stream()
 					.filter(br -> {
 						Calendar todayMinusAWeek = Calendar.getInstance();
-						todayMinusAWeek.add(Calendar.DATE, -14);
+						todayMinusAWeek.add(Calendar.DATE, -7);
 						Calendar due = Calendar.getInstance();
 						due.setTime(br.getFarrowDueDate());
 						return due.before(todayMinusAWeek);

@@ -14,7 +14,7 @@ public class FarrowingReportColumnDate extends FarrowingReportColumn {
 	
 	public void setupColumn() {
 		super.setupColumn();
-		farrowReportColumnData.add(3, new HeaderParameterPair("Sow No.", sowNo));
+		farrowReportColumnData.add(3, new HeaderParameterPair("SOW NO.", sowNo));
 	}
 
 	public List<TableColumn<FarrowingReportRowDate, String>> getFarrowingReportColumns() {

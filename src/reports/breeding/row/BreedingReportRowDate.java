@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import model.BreedingRow;
 import model.FarrowingRow;
 import record.FarrowingRecord;
+import record.SowRecord;
 
 public class BreedingReportRowDate extends BreedingReportRow {
 
@@ -20,7 +21,29 @@ public class BreedingReportRowDate extends BreedingReportRow {
 				.map( n -> n.getBoarNo())
 				.collect(Collectors.joining("/")));
 		FarrowingRow fr = FarrowingRecord.findRefNo(br.getRefNo());
-		dateWean = new SimpleStringProperty(null == fr || null == fr.getWeanDate()? "":sdf.format(fr.getWeanDate()));
+		
+		if(fr == null) {
+			if(!SowRecord.isDiseased(br.getSowNo().getSowNo()) && 
+					(br.getPregnancyRemarks().equals("") || br.getPregnancyRemarks().equals("+"))) {
+				dateWean  = new SimpleStringProperty();
+			}
+			else if(br.getPregnancyRemarks().equalsIgnoreCase("+AB") 
+					|| br.getPregnancyRemarks().equalsIgnoreCase("-RB") 
+					|| SowRecord.isDiseased(br.getSowNo().getSowNo())){
+				dateWean = new SimpleStringProperty("N/A");
+			}
+			else {
+				dateWean = new SimpleStringProperty("ERROR");
+			}
+		}
+		else {
+			if(br.getPregnancyRemarks().equals("+")){
+				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"N/A":sdf.format(fr.getWeanDate()));
+			}
+			else {
+				dateWean  = new SimpleStringProperty("ERROR");
+			}
+		}
 	}
 
 	public String getSowNo() {

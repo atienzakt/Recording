@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import model.BreedingRow;
 import model.FarrowingRow;
 import record.FarrowingRecord;
+import record.SowRecord;
 import utils.RemovePoint;
 
 public class BreedingReportRow {
@@ -51,9 +52,41 @@ public class BreedingReportRow {
 		breedingTime = new SimpleStringProperty(br.getBreedingTime());
 		pregnancyRemarks = new SimpleStringProperty(br.getPregnancyRemarks());
 		FarrowingRow fr = FarrowingRecord.findRefNo(br.getRefNo());
-		dateFar = new SimpleStringProperty(null == fr || null == fr.getFarDate()? "":sdf.format(fr.getFarDate()));
-		birth  = new SimpleStringProperty(null == fr || null == fr.getTotalFar()? "":fr.getTotalFar());
-		liveBirth  = new SimpleStringProperty(null == fr || null == fr.getLive()? "":fr.getLive());
+		
+		
+		if(fr == null) {
+			if(!SowRecord.isDiseased(br.getSowNo().getSowNo()) && 
+					(br.getPregnancyRemarks().equals("") || br.getPregnancyRemarks().equals("+"))){
+				dateFar = new SimpleStringProperty();
+				birth  = new SimpleStringProperty();
+				liveBirth  = new SimpleStringProperty();
+			}
+			else if(br.getPregnancyRemarks().equalsIgnoreCase("+AB") 
+					|| br.getPregnancyRemarks().equalsIgnoreCase("-RB") 
+					|| SowRecord.isDiseased(br.getSowNo().getSowNo())){
+				dateFar = new SimpleStringProperty("N/A");
+				birth  = new SimpleStringProperty("N/A");
+				liveBirth  = new SimpleStringProperty("N/A");
+			}
+			else {
+				dateFar = new SimpleStringProperty("ERROR");
+				birth  = new SimpleStringProperty("ERROR");
+				liveBirth  = new SimpleStringProperty("ERROR");
+			}
+		}
+		else {
+			if(br.getPregnancyRemarks().equals("+")){
+				dateFar = new SimpleStringProperty(null == fr.getFarDate()? "N/A":sdf.format(fr.getFarDate()));
+				birth  = new SimpleStringProperty(null == fr.getTotalFar()? "N/A":fr.getTotalFar());
+				liveBirth  = new SimpleStringProperty(null == fr.getLive()? "N/A":fr.getLive());
+			}
+			else {
+				dateFar = new SimpleStringProperty("ERROR");
+				birth  = new SimpleStringProperty("ERROR");
+				liveBirth  = new SimpleStringProperty("ERROR");
+			}
+		}
+		
 		// pregnancyRemarksDate = new SimpleStringProperty((null ==
 		// br.getPregnancyRemarksDate())?"":sdf.format(br.getPregnancyRemarksDate()));
 		// farrowDueDate = new SimpleStringProperty((null ==
@@ -73,7 +106,7 @@ public class BreedingReportRow {
 	}
 
 	public String getBreedingTime() {
-		return breedingTime.get();
+		return RemovePoint.remove(breedingTime.get());
 	}
 
 	public String getPregnancyRemarks() {

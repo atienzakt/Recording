@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 import model.FarrowingRow;
 import model.Sow;
 import record.BreedingRecord;
@@ -31,7 +32,7 @@ import utils.DateFormat;
 
 public class FarrowingReportView {
 
-	private DecimalFormat dcf = new DecimalFormat("####.####");
+	private DecimalFormat dcf = new DecimalFormat("###0.00");
 	
 	public void createFarrowingBySow(String sowNumber) throws IOException {
 		Stage stage = new Stage();
@@ -40,11 +41,11 @@ public class FarrowingReportView {
 				.load(getClass().getClassLoader().getResource("reports/farrowing/FarrowingReportSow.fxml"));
 		stage.setScene(new Scene(root));
 		stage.show();
-		((Label) stage.getScene().lookup("#FarrowReportSow")).setText("Sow No: "+selectedSow.getSowNo());
-		((Label) stage.getScene().lookup("#FarrowReportBreed")).setText("Breed: "+selectedSow.getBreed());
-		((Label) stage.getScene().lookup("#FarrowReportBirthdate")).setText("Birthdate: " + ((null == selectedSow.getBirthDate()) ? ""
+		((Label) stage.getScene().lookup("#FarrowReportSow")).setText("SOW NO: "+selectedSow.getSowNo());
+		((Label) stage.getScene().lookup("#FarrowReportBreed")).setText("Breed:    "+selectedSow.getBreed());
+		((Label) stage.getScene().lookup("#FarrowReportBirthdate")).setText("Date of Birth:    " + ((null == selectedSow.getBirthDate()) ? ""
 				: SimpleDateFormat.getDateInstance().format(selectedSow.getBirthDate())));																						// selectedSow.getBirthDate())?"":SimpleDateFormat.getDateInstance().format(selectedSow.getBirthDate())));
-		((Label) stage.getScene().lookup("#FarrowReportOrigin")).setText("Origin: " + ((null == selectedSow.getOrigin()) ? ""
+		((Label) stage.getScene().lookup("#FarrowReportOrigin")).setText("Origin:    " + ((null == selectedSow.getOrigin()) ? ""
 				: selectedSow.getOrigin()));
 		TableView<FarrowingReportRowSow> table = (TableView<FarrowingReportRowSow>) stage.getScene()
 				.lookup("#FarrowReportTable");
@@ -74,32 +75,34 @@ public class FarrowingReportView {
 				.map(x -> (new BigDecimal(x.getMm())))
 				.reduce(BigDecimal.ZERO,BigDecimal::add);
 		
-		BigDecimal breedings = BigDecimal.valueOf(BreedingRecord.filterBySow(selectedSow).size());
 		BigDecimal totalFarrowings = BigDecimal.valueOf(filterList.stream().count());
 		
-		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String farrowPercentage = breedings.intValue() != 0? dcf.format(totalFarrowings.divide(breedings,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		String alivePercentage = litterSize.intValue() != 0? dcf.format(liveBirth.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		String mmPercentage = litterSize.intValue() != 0? dcf.format(mm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		String sbPercentage = litterSize.intValue() != 0? dcf.format(sb.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
+		String alivePercentage = litterSize.intValue() != 0? dcf.format(liveBirth.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		String mmPercentage = litterSize.intValue() != 0? dcf.format(mm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		String sbPercentage = litterSize.intValue() != 0? dcf.format(sb.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
 		
-		((TextArea) stage.getScene().lookup("#FarrPerformanceText")).setText(
-				"Parity:                                                               "+ selectedSow.getParity() + System.lineSeparator()+
-				"Ave. Litter Size Per Farrow:                              "+aveLitterSize+System.lineSeparator()+
-				"Ave. Live Birth Per Farrow  /  Rate:                   "+aveLiveBirth+ " /  "+alivePercentage+System.lineSeparator()+
-				"Ave. Mummified Per Farrow  /  Rate:               "+aveMm+ " /  "+mmPercentage+System.lineSeparator()+
-				"Ave. Still Birth Birth Per Farrow  /  Rate:          "+aveSb+ " /  "+sbPercentage+System.lineSeparator());
+		((Text)stage.getScene().lookup("#parity1")).setText(selectedSow.getParity());
+		((Text)stage.getScene().lookup("#aveLitterSize")).setText(aveLitterSize);
+		((Text)stage.getScene().lookup("#aveLiveBirth")).setText(aveLiveBirth);
+		((Text)stage.getScene().lookup("#aveMm")).setText(aveMm);
+		((Text)stage.getScene().lookup("#aveSb")).setText(aveSb);
 		
-		((TextArea) stage.getScene().lookup("#BreedPerformanceText")).setText(
-				"Total Breeding:                             "+breedings.intValue()+System.lineSeparator()+
-				"Total Farrowing  /  Rate:               "+ totalFarrowings.intValue()+"  /  "+farrowPercentage);
+		((Text)stage.getScene().lookup("#parity2")).setText(selectedSow.getParity());
+		((Text)stage.getScene().lookup("#totalLitter")).setText(litterSize.intValue()+"");
+		((Text)stage.getScene().lookup("#totalLive")).setText(liveBirth.intValue()+"");
+		((Text)stage.getScene().lookup("#livePercent")).setText(alivePercentage);
+		((Text)stage.getScene().lookup("#totalMm")).setText(mm.intValue()+"");
+		((Text)stage.getScene().lookup("#mmPercent")).setText(mmPercentage);
+		((Text)stage.getScene().lookup("#totalSb")).setText(sb.intValue()+"");
+		((Text)stage.getScene().lookup("#sbPercent")).setText(sbPercentage);
 		
 	}
 	
@@ -110,7 +113,7 @@ public class FarrowingReportView {
 		stage.setScene(new Scene(root));
 		stage.show();
 		((Label) stage.getScene().lookup("#FarrowReportStartEnd"))
-				.setText("Farrowing Period: From " + DateFormat.formatToString(from) + " to " + DateFormat.formatToString(to));
+				.setText("Farrowing Period:   " + DateFormat.formatToString(from) + "   -   " + DateFormat.formatToString(to));
 		TableView<FarrowingReportRowDate> table = (TableView<FarrowingReportRowDate>) stage.getScene()
 				.lookup("#FarrowReportTable");
 		FarrowingReportColumnDate columns = new FarrowingReportColumnDate();
@@ -177,66 +180,38 @@ public class FarrowingReportView {
 		
 		BigDecimal totalFarrowings = BigDecimal.valueOf(filterListDate.stream().count());
 		
-		String diffTotalAndLivePercentage = litterSize.intValue() != 0? (diffTotalAndLive.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
+		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String sbAndMmPercentage = litterSize.intValue() != 0? (sbAndMm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
+		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String weaningMortalitiesPercentage = litterSize.intValue() != 0? (weaningMortalities.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
+		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
-		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+		String alivePercentage = litterSize.intValue() != 0? dcf.format(liveBirth.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		String mmPercentage = litterSize.intValue() != 0? dcf.format(mm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		String sbPercentage = litterSize.intValue() != 0? dcf.format(sb.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
 		
-		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
+
+
+		((Text)stage.getScene().lookup("#periodFrom1")).setText(DateFormat.formatToString(from));
+		((Text)stage.getScene().lookup("#periodTo1")).setText(DateFormat.formatToString(to));
+		((Text)stage.getScene().lookup("#totalFarrow")).setText(totalFarrowings.intValue()+"");
+		((Text)stage.getScene().lookup("#totalLitter")).setText(litterSize.intValue()+"");
+		((Text)stage.getScene().lookup("#totalLive")).setText(liveBirth.intValue()+"");
+		((Text)stage.getScene().lookup("#livePercent")).setText(alivePercentage);
+		((Text)stage.getScene().lookup("#totalMm")).setText(mm.intValue()+"");
+		((Text)stage.getScene().lookup("#mmPercent")).setText(mmPercentage);
+		((Text)stage.getScene().lookup("#totalSb")).setText(sb.intValue()+"");
+		((Text)stage.getScene().lookup("#sbPercent")).setText(sbPercentage);
+
+		((Text)stage.getScene().lookup("#periodFrom2")).setText(DateFormat.formatToString(from));
+		((Text)stage.getScene().lookup("#periodTo2")).setText(DateFormat.formatToString(to));
+		((Text)stage.getScene().lookup("#aveLitterSize")).setText(aveLitterSize);
+		((Text)stage.getScene().lookup("#aveLiveBirth")).setText(aveLiveBirth);
+		((Text)stage.getScene().lookup("#aveMm")).setText(aveMm);
+		((Text)stage.getScene().lookup("#aveSb")).setText(aveSb);
+
 		
-		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
-		
-		String aveMaleFemale = totalFarrowings.intValue()!=0? (totalMaleFemale.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
-		
-		String aveBirthWeight = liveBirth.intValue()!=0? (totalWeightLiveBirth.divide(liveBirth,2,RoundingMode.HALF_UP))+"kg":"";
-		
-		String aveWeaned = totalFarrowings.intValue()!=0? (weaned.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"";
-		
-		String aveWeanWeight = weaned.intValue()!=0? (totalWeanWeight.divide(weaned,2,RoundingMode.HALF_UP))+"kg":"";
-		
-		String aveWeanAge = weaned.intValue()!=0? (totelWeanAge.divide(weaned,2,RoundingMode.HALF_UP))+" days":"";
-		
-//		((TextArea) stage.getScene().lookup("#FarrPerformanceText1")).setText(
-//				"Still Birth and Mummified: "+sbAndMm.intValue() + System.lineSeparator()+
-//				"Still Birth and Mummified Percentage: "+sbAndMmPercentage + System.lineSeparator()+
-//				"Total Difference of Total Farrows and Live Births: "+diffTotalAndLive.intValue()+ System.lineSeparator()+
-//				"Total Difference of Total Farrows and Live Births Percentage: "+diffTotalAndLivePercentage+ System.lineSeparator()+
-//				"Average Litter Size: "+aveLitterSize +System.lineSeparator() +
-//				"Average Live Birth: "+aveLiveBirth + System.lineSeparator()+
-//				"Average Total of Male and Female: "+aveMaleFemale + System.lineSeparator()+
-//				"Average Birth Weight: "+aveBirthWeight+System.lineSeparator()
-//				);
-		
-//		((TextArea) stage.getScene().lookup("#FarrPerformanceText2")).setText(
-//		"Weaning Mortalities: "+weaningMortalities.intValue() + System.lineSeparator()+
-//		"Weaning Mortality Percentage: "+weaningMortalitiesPercentage + System.lineSeparator()+
-//		"Average Weaned: " +aveWeaned + System.lineSeparator()+
-//		"Average Wean Weight: "+aveWeanWeight+System.lineSeparator()+
-//		"Average Wean Age: "+aveWeanAge+System.lineSeparator());
-		
-		String alivePercentage = litterSize.intValue() != 0? dcf.format(liveBirth.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		String mmPercentage = litterSize.intValue() != 0? dcf.format(mm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		String sbPercentage = litterSize.intValue() != 0? dcf.format(sb.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"";
-		
-		((TextArea) stage.getScene().lookup("#FarrPerformanceText1")).setText(
-				"For Period: " + DateFormat.formatToString(from) + "  -  " + DateFormat.formatToString(to)+System.lineSeparator() +
-				"Total Farrow:                               " + totalFarrowings.intValue() + System.lineSeparator() +
-				"Total Piglets Farrowed:               "+ litterSize.intValue() + System.lineSeparator() +
-				"No. of Alive  /  Rate:                    "+liveBirth.intValue() +"  /  "+alivePercentage+ System.lineSeparator() +
-				"No. of Mummified  /  Rate:         "+mm.intValue() +"  /  "+mmPercentage+ System.lineSeparator() +
-				"No. of Still Birth  /  Rate:             "+sb.intValue() +"  /  "+sbPercentage+ System.lineSeparator() +
-				"Total Weaned Piglets:                 "+totalWeaned.intValue());
-		
-		((TextArea) stage.getScene().lookup("#FarrPerformanceText2")).setText(
-				"For Period: " + DateFormat.formatToString(from) + "  -  " + DateFormat.formatToString(to)+System.lineSeparator() +
-				"Ave. Litter Size :               "+ aveLitterSize + System.lineSeparator() +
-				"Ave. Live Birth:                 "+ aveLiveBirth + System.lineSeparator()+
-				"Ave. Mummified :            "+ aveMm + System.lineSeparator() +
-				"Ave. Still Birth:                 "+ aveSb + System.lineSeparator());
 	}
 }

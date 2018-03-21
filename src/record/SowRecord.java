@@ -10,7 +10,6 @@ import model.Sow;
 public class SowRecord {
 	public static List<Sow> sowList = new ArrayList<Sow>();
 	public static List<Sow> diseasedSowList = new ArrayList<Sow>();
-	public static List<Sow> diseasedSowList2 = new ArrayList<Sow>();
 
 	public static Sow getSow(String sowNo) {
 		for (Sow s : sowList) {
@@ -22,7 +21,7 @@ public class SowRecord {
 	}
 	
 	public static boolean isDiseased(String sowNo) {
-		for(Sow s:diseasedSowList2) {
+		for(Sow s:diseasedSowList) {
 			if(s.getSowNo().equals(sowNo)) {
 				return true;
 			}
