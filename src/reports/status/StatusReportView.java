@@ -15,8 +15,8 @@ public class StatusReportView {
 
 	public void createStatusReport() throws IOException {
 		Stage stage = new Stage();
-		FXMLLoader loader = new FXMLLoader();
-		Parent root = loader.load(getClass().getResource("statusReport.fxml").openStream());
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("statusReport.fxml"));
+		Parent root = loader.load();
 		
 		ObservableList<StatusRow> data = FXCollections.observableArrayList();
 		for(Sow s: SowRecord.sowList) {

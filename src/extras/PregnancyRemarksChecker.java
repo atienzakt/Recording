@@ -21,18 +21,21 @@ public class PregnancyRemarksChecker {
 		for(Sow s:SowRecord.sowList) {
 			List<BreedingRow> breedingList = BreedingRecord.filterBySow(s).stream()
 												.sorted(Comparator.comparing(BreedingRow::getDateBreed).reversed())
-												.filter(br -> br.getPregnancyRemarks().equals("+"))
+												
 												.filter(br -> !SowRecord.isDiseased(br.getSowNo().getSowNo()))
 												.collect(Collectors.toList());
 			
 			if(breedingList.size()>1) {
 				for(int i =1;i<breedingList.size();i++) {
 					
+					if(!breedingList.get(i).getPregnancyRemarks().equals("+")) {
+						continue;
+					}
 					Interval interval = new Interval(breedingList.get(i).getDateBreed().getTime(), breedingList.get(i-1).getDateBreed().getTime());
 					if(Days.daysIn(interval).getDays()<100) {
 						System.out.println("Sow No: " + s.getSowNo());
 						System.out.println("Days Gap: "+Days.daysIn(interval).getDays());
-						break;
+						
 					}
 				
 				}
@@ -48,7 +51,7 @@ public class PregnancyRemarksChecker {
 					}).collect(Collectors.toList());
 			
 			for(BreedingRow b:breedingListDate) {
-				if(null == FarrowingRecord.findRefNo(b.getRefNo())) {
+				if(null == FarrowingRecord.findRefNo(b.getRefNo()) && b.getPregnancyRemarks().equals("+")) {
 					System.out.println("Due Date A week before today without Farrowing: "+ b.getRefNo() + " Sow No. "+b.getSowNo().getSowNo());
 				}
 			}

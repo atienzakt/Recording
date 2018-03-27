@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.SystemOutLogger;
 import org.joda.time.Days;
 
@@ -82,10 +84,43 @@ public class MainApplication extends Application implements EventHandler<ActionE
 	
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 
-		BreedingRecordParserCSV.setup();
-		FarrowingRecordParserCSV.setup();
+		try {
+			BreedingRecordParserCSV.setup();
+		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setTitle("Error In Breeding File");
+			a.setHeaderText("Breeding Excel May Be Open, Missing or Corrupted");
+			StringBuilder sb = new StringBuilder();
+			for(StackTraceElement ste: e.getStackTrace()) {
+				sb.append(ste.toString());
+				sb.append(System.lineSeparator());
+			}
+			a.setContentText(sb.toString());
+			Optional<ButtonType> exit = a.showAndWait();
+			
+			if(exit.isPresent() || !exit.isPresent()) {
+				System.exit(0);
+			}
+		}
+		try {
+			FarrowingRecordParserCSV.setup();
+		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setTitle("Error In Farrowing File");
+			a.setHeaderText("Farrowing Excel May Be Open, Missing or Corrupted");
+			StringBuilder sb = new StringBuilder();
+			for(StackTraceElement ste: e.getStackTrace()) {
+				sb.append(ste.toString());
+				sb.append(System.lineSeparator());
+			}
+			a.setContentText(sb.toString());
+			Optional<ButtonType> exit = a.showAndWait();
+			if(exit.isPresent() || !exit.isPresent()) {
+				System.exit(0);
+			}
+		}
 		SowRecord.tagDeadSows();
 		SowRecord.setParities();
 		PregnancyRemarksChecker.pregnancyCheck();
@@ -95,6 +130,7 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		WeanChecker.check();
 
 		initUI(primaryStage);
+		
 
 	}
 

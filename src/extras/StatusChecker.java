@@ -17,10 +17,7 @@ public class StatusChecker {
 
 	public static void setAndCheckStatus() {
 		System.out.println("Status Checker");
-		
-		for(Sow s:SowRecord.diseasedSowList) {
-			s.setStatus("Deceased");
-		}
+				
 		Collections.reverse(BreedingRecord.breedingList);
 		for(Sow s:SowRecord.sowList.stream()
 				.filter(sow -> !SowRecord.isDiseased(sow.getSowNo()))
@@ -39,8 +36,8 @@ public class StatusChecker {
 			}
 			
 			
-			DateTime now = new DateTime();
-			DateTime due = new DateTime(latest.getFarrowDueDate());
+//			DateTime now = new DateTime();
+//			DateTime due = new DateTime(latest.getFarrowDueDate());
 			FarrowingRow farrow = FarrowingRecord.findRefNo(latest.getRefNo());
 			
 			if(latest.getPregnancyRemarks().equals("+")) {

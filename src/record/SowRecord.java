@@ -32,7 +32,7 @@ public class SowRecord {
 	public static void tagDeadSows() {
 		for(BreedingRow br: BreedingRecord.breedingList) {
 			if(isDiseased(br.getSowNo().getSowNo())) {
-				br.setComments((br.getComments()+ System.lineSeparator()+ " Deceased").trim());
+				br.setComments((br.getComments()+ System.lineSeparator()+ br.getSowNo().getStatus()).trim());
 			}
 		}
 	}

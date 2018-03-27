@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -17,6 +18,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import model.Boar;
 import model.BreedingRow;
 import model.Sow;
@@ -26,7 +30,7 @@ import record.SowRecord;
 
 public class BreedingRecordParserCSV {
 
-	public static void setup() throws ParseException, EncryptedDocumentException, InvalidFormatException, IOException {
+	public static void setup() throws EncryptedDocumentException, InvalidFormatException, IOException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Workbook wb = WorkbookFactory.create(new File("Breeding.xlsx"));
@@ -35,6 +39,7 @@ public class BreedingRecordParserCSV {
 		if (rows.hasNext()) {
 			rows.next();// headers
 		}
+		
 		while (rows.hasNext()) {
 			Row entry = rows.next();
 			int counter = 0;
@@ -63,14 +68,48 @@ public class BreedingRecordParserCSV {
 			if ("".equals(dateWeaned.toString())) {
 				br.setDateWeaned(null);
 			} else {
-				br.setDateWeaned(sdf.parse(sdf.format(dateWeaned.getDateCellValue())));
+				try {
+					br.setDateWeaned(sdf.parse(sdf.format(dateWeaned.getDateCellValue())));
+				} catch (IllegalStateException  | ParseException e) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Error In Input for Breeding");
+					a.setHeaderText("Error in Weaned Date in Breeding, should only be date or blank");
+					StringBuilder sb = new StringBuilder();
+					for(StackTraceElement ste: e.getStackTrace()) {
+						sb.append(ste.toString());
+						sb.append(System.lineSeparator());
+					}
+					a.setContentText(sb.toString());
+					Optional<ButtonType> exit = a.showAndWait();
+					if(exit.isPresent() || !exit.isPresent()) {
+						System.exit(0);
+					}
+					
+					
+				}
 			}
 
 			Cell dateBreed = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			if ("".equals(dateBreed.toString())) {
 				br.setDateBreed(null);
 			} else {
-				br.setDateBreed(sdf.parse(sdf.format(dateBreed.getDateCellValue())));
+				try {
+					br.setDateBreed(sdf.parse(sdf.format(dateBreed.getDateCellValue())));
+				} catch (IllegalStateException  |ParseException e) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Error In Input for Breeding");
+					a.setHeaderText("Error in Date Breed in Breeding, should only be date or blank");
+					StringBuilder sb = new StringBuilder();
+					for(StackTraceElement ste: e.getStackTrace()) {
+						sb.append(ste.toString());
+						sb.append(System.lineSeparator());
+					}
+					a.setContentText(sb.toString());
+					Optional<ButtonType> exit = a.showAndWait();
+					if(exit.isPresent() || !exit.isPresent()) {
+						System.exit(0);
+					}
+				}
 			}
 
 			String fpDays = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
@@ -100,21 +139,69 @@ public class BreedingRecordParserCSV {
 			if ("".equals(pregnancyRemarksDate.toString())) {
 				br.setPregnancyRemarksDate(null);
 			} else {
-				br.setPregnancyRemarksDate(sdf.parse(sdf.format(pregnancyRemarksDate.getDateCellValue())));
+				try {
+					br.setPregnancyRemarksDate(sdf.parse(sdf.format(pregnancyRemarksDate.getDateCellValue())));
+				} catch (IllegalStateException  |ParseException e) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Error In Input for Breeding");
+					a.setHeaderText("Error in Pregnancy Remarks Date in Breeding, should only be date or blank");
+					StringBuilder sb = new StringBuilder();
+					for(StackTraceElement ste: e.getStackTrace()) {
+						sb.append(ste.toString());
+						sb.append(System.lineSeparator());
+					}
+					a.setContentText(sb.toString());
+					Optional<ButtonType> exit = a.showAndWait();
+					if(exit.isPresent() || !exit.isPresent()) {
+						System.exit(0);
+					}
+				}
 			}
 
 			Cell farrowDateDue = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			if ("".equals(farrowDateDue.toString())) {
 				br.setFarrowDueDate(null);
 			} else {
-				br.setFarrowDueDate(sdf.parse(sdf.format(farrowDateDue.getDateCellValue())));
+				try {
+					br.setFarrowDueDate(sdf.parse(sdf.format(farrowDateDue.getDateCellValue())));
+				} catch (IllegalStateException  |ParseException e) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Error In Input for Breeding");
+					a.setHeaderText("Error in Farrow Due Date in Breeding, should only be date or blank");
+					StringBuilder sb = new StringBuilder();
+					for(StackTraceElement ste: e.getStackTrace()) {
+						sb.append(ste.toString());
+						sb.append(System.lineSeparator());
+					}
+					a.setContentText(sb.toString());
+					Optional<ButtonType> exit = a.showAndWait();
+					if(exit.isPresent() || !exit.isPresent()) {
+						System.exit(0);
+					}
+				}
 			}
 
 			Cell farrowDateActual = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			if ("".equals(farrowDateActual.toString())) {
 				br.setFarrowActualDate(null);
 			} else {
-				br.setFarrowActualDate(sdf.parse(sdf.format(farrowDateActual.getDateCellValue())));
+				try {
+					br.setFarrowActualDate(sdf.parse(sdf.format(farrowDateActual.getDateCellValue())));
+				} catch (IllegalStateException  |ParseException e) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Error In Input for Breeding");
+					a.setHeaderText("Error in Farrow Actual Date in Breeding, should only be date or blank");
+					StringBuilder sb = new StringBuilder();
+					for(StackTraceElement ste: e.getStackTrace()) {
+						sb.append(ste.toString());
+						sb.append(System.lineSeparator());
+					}
+					a.setContentText(sb.toString());
+					Optional<ButtonType> exit = a.showAndWait();
+					if(exit.isPresent() || !exit.isPresent()) {
+						System.exit(0);
+					}
+				}
 			}
 
 			String prevBreedingNo = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
@@ -132,6 +219,16 @@ public class BreedingRecordParserCSV {
 			String status = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
 			if(!status.trim().equals("") && !SowRecord.isDiseased(sowNo)) {
 				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
+				Sow deadSow =  SowRecord.getSow(sowNo);
+				if(status.toLowerCase().contains("cull") && deadSow.getStatus()== null) {
+					deadSow.setStatus("Cull");
+				}
+				else if( (status.toLowerCase().contains("disease") || status.toLowerCase().contains("mortal")) && deadSow.getStatus()== null) {
+					deadSow.setStatus("Deceased");
+				}
+				else if(null!=deadSow.getStatus()) {
+					System.out.println("Farrowing Duplicate Row Tagged as deceased, not a big concern: "+refNo + " || For Sow: "+sowNo);
+				}
 			}
 			BreedingRecord.breedingList.add(br);
 

@@ -3,6 +3,12 @@ package reports.status;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.joda.time.LocalDate;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.FarrowingRow;
@@ -12,19 +18,19 @@ import utils.DateFormat;
 
 public class StatusRow {
 
-	public final StringProperty no;
+	public final IntegerProperty no;
 	public final StringProperty sowNo;
 	public final StringProperty dateOfBirth;
 	public final StringProperty breed;
 	public final StringProperty parity;
 	public final StringProperty totalLitter;
 	public final StringProperty totalLive;
-	public final StringProperty firstParity;
+	public final ObjectProperty<LocalDate> firstParity;
 	public final StringProperty lastWean;
 	public final StringProperty status;
 	
 	public StatusRow(Sow sow , int number) {
-		no = new SimpleStringProperty(number+"");
+		no = new SimpleIntegerProperty(number);
 		sowNo = new SimpleStringProperty(sow.getSowNo());
 		dateOfBirth = new SimpleStringProperty(null == sow.getBirthDate()? "NOT GIVEN":DateFormat.formatToString(sow.getBirthDate()));
 		breed = new SimpleStringProperty(null == sow.getBreed()? "":sow.getBreed());
@@ -38,8 +44,8 @@ public class StatusRow {
 												.map(s -> new BigDecimal(s.getLive()))
 												.reduce(BigDecimal.ZERO,BigDecimal::add).intValue()+"");
 		
-		firstParity = new SimpleStringProperty(FarrowingRecord.filterBySow(sow).isEmpty()?"N/A"
-				:DateFormat.formatToString(FarrowingRecord.filterBySow(sow).stream().findFirst().get().getFarDate()));
+		firstParity = new SimpleObjectProperty<LocalDate>(FarrowingRecord.filterBySow(sow).isEmpty()?null
+				:LocalDate.fromDateFields(FarrowingRecord.filterBySow(sow).stream().findFirst().get().getFarDate()));
 		
 		Optional<FarrowingRow> lastValidWean = FarrowingRecord.filterBySow(sow).stream()
 				.filter(fr -> null != fr.getWeanDate())
@@ -49,7 +55,7 @@ public class StatusRow {
 		status = new SimpleStringProperty(sow.getStatus());
 	}
 
-	public String getNo() {
+	public Integer getNo() {
 		return no.get();
 	}
 
@@ -77,7 +83,7 @@ public class StatusRow {
 		return totalLive.get();
 	}
 
-	public String getFirstParity() {
+	public LocalDate getFirstParity() {
 		return firstParity.get();
 	}
 

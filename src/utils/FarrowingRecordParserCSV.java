@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -16,8 +17,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import model.Boar;
 import model.FarrowingRow;
+import model.Sow;
 import record.BoarRecord;
 import record.BreedingRecord;
 import record.FarrowingRecord;
@@ -25,7 +30,7 @@ import record.SowRecord;
 
 public class FarrowingRecordParserCSV {
 
-	public static void setup() throws ParseException, IOException, EncryptedDocumentException, InvalidFormatException {
+	public static void setup() throws IOException, EncryptedDocumentException, InvalidFormatException {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Workbook wb = WorkbookFactory.create(new File("Farrowing.xlsx"));
 		Sheet sheet = wb.getSheetAt(0);
@@ -44,7 +49,23 @@ public class FarrowingRecordParserCSV {
 			f.setRefNo(refNo);
 
 			Cell farDate = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-			f.setFarDate("".equals(farDate.toString()) ? null : (sdf.parse(sdf.format(farDate.getDateCellValue()))));
+			try {
+				f.setFarDate("".equals(farDate.toString()) ? null : (sdf.parse(sdf.format(farDate.getDateCellValue()))));
+			} catch (IllegalStateException  |ParseException e) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Error In Input for Farrowing");
+				a.setHeaderText("Error in Farrowing Date in Farrowing, should only be date or blank");
+				StringBuilder sb = new StringBuilder();
+				for(StackTraceElement ste: e.getStackTrace()) {
+					sb.append(ste.toString());
+					sb.append(System.lineSeparator());
+				}
+				a.setContentText(sb.toString());
+				Optional<ButtonType> exit = a.showAndWait();
+				if(exit.isPresent() || !exit.isPresent()) {
+					System.exit(0);
+				}
+			}
 
 			String sowNo = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
 			f.setSowNo(SowRecord.getSow(sowNo));
@@ -89,7 +110,23 @@ public class FarrowingRecordParserCSV {
 			f.setMortality(mortality.trim().equals("")?"0":mortality);
 
 			Cell weanDate = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-			f.setWeanDate("".equals(weanDate.toString()) ? null : (sdf.parse(sdf.format(weanDate.getDateCellValue()))));
+			try {
+				f.setWeanDate("".equals(weanDate.toString()) ? null : (sdf.parse(sdf.format(weanDate.getDateCellValue()))));
+			} catch (IllegalStateException  |ParseException e) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Error In Input for Farrowing");
+				a.setHeaderText("Error in Farrowing Date in Farrowing, should only be date or blank");
+				StringBuilder sb = new StringBuilder();
+				for(StackTraceElement ste: e.getStackTrace()) {
+					sb.append(ste.toString());
+					sb.append(System.lineSeparator());
+				}
+				a.setContentText(sb.toString());
+				Optional<ButtonType> exit = a.showAndWait();
+				if(exit.isPresent() || !exit.isPresent()) {
+					System.exit(0);
+				}
+			}
 
 			String weanCount = entry.getCell(counter++, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).toString();
 			f.setTotalWean(weanCount.trim().equals("")?"0":weanCount);
@@ -104,8 +141,19 @@ public class FarrowingRecordParserCSV {
 			f.setComments(remarks);
 			
 			if((remarks.toLowerCase().contains("disease") 
-					|| remarks.toLowerCase().contains("cull")) && !SowRecord.isDiseased(sowNo)) {
+					|| remarks.toLowerCase().contains("cull")
+					|| remarks.toLowerCase().contains("mortal")) && !SowRecord.isDiseased(sowNo)) {
 				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
+				Sow deadSow =  SowRecord.getSow(sowNo);
+				if(remarks.toLowerCase().contains("cull") && deadSow.getStatus()== null) {
+					deadSow.setStatus("Cull");
+				}
+				else if( (remarks.toLowerCase().contains("disease") || remarks.toLowerCase().contains("mortal")) && deadSow.getStatus()== null) {
+					deadSow.setStatus("Deceased");
+				}
+				else if(null!=deadSow.getStatus()) {
+					System.out.println("Farrowing Duplicate Row Tagged as deceased, not a big concern: "+refNo + " || For Sow: "+sowNo);
+				}
 			}
 
 			f.setBreedingRow(BreedingRecord.findRefNo(refNo));

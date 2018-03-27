@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="900.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="900.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -114,12 +114,12 @@
                                     <Font size="17.0" />
                                  </font>
                               </Text>
-                              <Text id="abortionPercent" layoutX="343.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="85.0">
+                              <Text id="rebreedPercent" layoutX="343.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="85.0">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
                               </Text>
-                              <Text id="rebreedPercent" layoutX="343.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="110.0">
+                              <Text id="abortionPercent" layoutX="343.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="110.0">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
