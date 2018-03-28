@@ -1,5 +1,8 @@
 package reports.status;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.function.Predicate;
 
 import org.joda.time.LocalDate;
@@ -10,13 +13,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import record.SowRecord;
 import utils.DateFormat;
 
 public class StatusViewController{
@@ -84,9 +87,59 @@ public class StatusViewController{
 	@FXML
 	private TextField statusFilter;
 	
+	@FXML
+	private Text totalActiveSows;
+	
+	@FXML
+	private Text pregnantCount;
+	
+	@FXML
+	private Text pregnantRate;
+	
+	@FXML
+	private Text lactatingCount;
+	
+	@FXML
+	private Text lactatingRate;
+	
+	@FXML
+	private Text inseminatedCount;
+	
+	@FXML
+	private Text inseminatedRate;
+	
+	@FXML
+	private Text breedableCount;
+	
+	@FXML
+	private Text breedableRate;
+	
+	@FXML
+	private Text drySowCount;
+	
+	@FXML
+	private Text drySowRate;
+	
+	@FXML
+	private Text totalInactiveSows;
+	
+	@FXML
+	private Text cullCount;
+	
+	@FXML
+	private Text deceasedCount;
+	
+	@FXML
+	private Text giltCount;
+	
+	@FXML
+	private Text othersCount;
+	
 	private ObservableList<StatusRow> data;
 	
 	private FilteredList<StatusRow> filteredData;
+	
+	private DecimalFormat dcf = new DecimalFormat("###0.00");
 	
 	@FXML
 	public void initialize() {
@@ -121,7 +174,7 @@ public class StatusViewController{
 		
 	}
 	
-	public StatusViewController setContents(ObservableList<StatusRow> data) {
+	public void setContents(ObservableList<StatusRow> data) {
 		this.data = data;
 		filteredData = new FilteredList<StatusRow>(data);
 		filteredData.predicateProperty().bind(
@@ -147,6 +200,7 @@ public class StatusViewController{
 						statusFilter.textProperty(),
 						firstParityFilter.textProperty()));
 		table.setItems(filteredData);
+//		totalActiveSows.setText(data.size()+"");
 //		
 //		filteredData.predicateProperty().bind((Bindings.createObjectBinding(new Callable<>() {
 //
@@ -164,9 +218,71 @@ public class StatusViewController{
 //				};
 //			}
 //		},noFilter.textProperty())));
+		BigDecimal totalActive = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo())).count());
 		
-		return this;		
+		BigDecimal pregnant = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("pregnant")).count());
+		
+		String pregnantPercentage = totalActive.intValue()!=0? dcf.format(pregnant.divide(totalActive,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		BigDecimal lactating = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("lactating")).count());
+		
+		String lactatingPercentage = totalActive.intValue()!=0? dcf.format(lactating.divide(totalActive,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		BigDecimal inseminated = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("inseminated")).count());
+		
+		String inseminatedPercentage = totalActive.intValue()!=0? dcf.format(inseminated.divide(totalActive,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		BigDecimal breedable = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("breedable")).count());
+		
+		String breedablePercentage = totalActive.intValue()!=0? dcf.format(breedable.divide(totalActive,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		BigDecimal drySow = BigDecimal.valueOf(data.stream()
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("dry")).count());
+		
+		String drySowPercentage = totalActive.intValue()!=0? dcf.format(drySow.divide(totalActive,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		totalActiveSows.setText(totalActive.intValue()+"");
+		pregnantCount.setText(pregnant.intValue()+"");
+		pregnantRate.setText(pregnantPercentage);
+		lactatingCount.setText(lactating.intValue()+"");
+		lactatingRate.setText(lactatingPercentage);
+		inseminatedCount.setText(inseminated.intValue()+"");
+		inseminatedRate.setText(inseminatedPercentage);
+		breedableCount.setText(breedable.intValue()+"");
+		breedableRate.setText(breedablePercentage);
+		drySowCount.setText(drySow.intValue()+"");
+		drySowRate.setText(drySowPercentage);
+		
+		BigDecimal totalInactive = BigDecimal.valueOf(data.stream()
+				.filter(row -> SowRecord.isDiseased(row.getSowNo())).count());
+		BigDecimal deceased = BigDecimal.valueOf(data.stream()
+				.filter(row -> SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("deceased") || row.getStatus().toLowerCase().contains("disease") ).count());
+		BigDecimal cull = BigDecimal.valueOf(data.stream()
+				.filter(row -> SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("cull")).count());
+		BigDecimal gilt = BigDecimal.valueOf(data.stream()
+				.filter(row -> row.getStatus().toLowerCase().contains("gilt")).count());
+		BigDecimal others = BigDecimal.valueOf(data.stream()
+				.filter(row -> row.getStatus().toLowerCase().contains("others")).count());
+		totalInactiveSows.setText(totalInactive.intValue()+"");
+		deceasedCount.setText(deceased.intValue()+"");
+		cullCount.setText(cull.intValue()+"");
+		giltCount.setText(gilt.intValue()+"");
+		othersCount.setText(others.intValue()+"");
+
 	}
+
 
 	public void setFilter() {
 //		noFilter.textProperty().addListener(new TextFieldListener(filteredData));

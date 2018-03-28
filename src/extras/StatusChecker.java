@@ -75,7 +75,7 @@ public class StatusChecker {
 				s.setStatus("Breedable");
 			}
 			else if (null == farrow && (latest.getPregnancyRemarks().trim().equals(""))) {
-				s.setStatus("Pending");
+				s.setStatus("Inseminated");
 			}
 			else {
 				System.out.println("Check on: "+s.getSowNo());
