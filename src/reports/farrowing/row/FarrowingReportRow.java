@@ -46,6 +46,9 @@ public class FarrowingReportRow {
 			if(SowRecord.isDiseased(fr.getSowNo().getSowNo()) || !fr.getSowNo().getStatus().equalsIgnoreCase("lactating")){
 				weanDate = new SimpleStringProperty("N/A");
 			}
+			else if(fr.getComments().toLowerCase().contains("fource") || fr.getComments().toLowerCase().contains("dry")) {
+				weanDate  = new SimpleStringProperty("N/A");	
+			}
 			else {
 				weanDate = new SimpleStringProperty("");
 			}

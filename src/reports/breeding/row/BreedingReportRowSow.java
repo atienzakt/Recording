@@ -35,7 +35,10 @@ public class BreedingReportRowSow extends BreedingReportRow {
 		}
 		else {
 			if(br.getPregnancyRemarks().equals("+")){
-				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"N/A":sdf.format(fr.getWeanDate()));
+				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"":sdf.format(fr.getWeanDate()));
+			}
+			else if(fr.getComments().toLowerCase().contains("fource") || fr.getComments().toLowerCase().contains("dry")) {
+				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"N/A":sdf.format(fr.getWeanDate()));	
 			}
 			else {
 				dateWean  = new SimpleStringProperty("ERROR");

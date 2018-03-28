@@ -1,6 +1,8 @@
 package reports.status;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,7 @@ public class StatusReportView {
 		Parent root = loader.load();
 		
 		ObservableList<StatusRow> data = FXCollections.observableArrayList();
-		for(Sow s: SowRecord.sowList) {
+		for(Sow s: SowRecord.sowList.stream().sorted(Comparator.comparing(Sow::getSowNo)).collect(Collectors.toList())) {
 			data.add( new StatusRow(s, data.size()+1));
 		}
 		
