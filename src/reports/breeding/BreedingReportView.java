@@ -220,7 +220,7 @@ public class BreedingReportView {
 				.map(x -> new BigDecimal(x.getLive()))
 				.reduce(BigDecimal.ZERO,BigDecimal::add);
 		
-		BigDecimal totalFarrowings = BigDecimal.valueOf(filterListDate.stream().count());
+		BigDecimal totalFarrowings = BigDecimal.valueOf(filteredListFarrowing.stream().count());
 		
 		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
 		
