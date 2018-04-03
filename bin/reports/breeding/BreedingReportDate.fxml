@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="950.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="975.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -33,7 +33,7 @@
                         </AnchorPane>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@text.css">
                            <children>
-                              <TableView id="BreedReportTable" fx:id="BreedReportTable" layoutX="2.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1200.0" stylesheets="@text.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TableView id="BreedReportTable" fx:id="BreedReportTable" layoutX="2.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1275.0" stylesheets="@text.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </items>
@@ -72,7 +72,7 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unconfirmed Pregnancy:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="135.0">
+                                    <Text layoutX="43.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unconfirmed Pregnancy:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="145.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
@@ -92,7 +92,7 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="unconfirmed" layoutX="293.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="135.0">
+                                    <Text id="unconfirmed" layoutX="293.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="145.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
@@ -151,12 +151,84 @@
                               </AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="FARROWING SUMMARY">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                            <content>
-                              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <Text layoutX="134.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Farrow:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Expecting:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="23.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Litter Farrowed:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="23.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Live Birth:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="43.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Mummified:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="43.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Still Born:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="135.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="43.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farrowing Rate:" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="170.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="173.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="173.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="60.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="223.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="85.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="223.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="110.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="223.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="135.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="223.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="70.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="170.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                 </children></AnchorPane>
                            </content>
                         </TitledPane>
                      </items>

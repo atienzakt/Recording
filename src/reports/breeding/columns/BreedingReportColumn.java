@@ -27,6 +27,8 @@ public abstract class BreedingReportColumn {
 	// public static final String ABW="ABW";
 	public static final String staff = "staff";
 	public static final String dateFar = "dateFar";
+	public static final String mm = "mm";
+	public static final String sb ="sb";
 	
 
 	public List<HeaderParameterPair> breederReportColumnData;
@@ -65,6 +67,8 @@ public abstract class BreedingReportColumn {
 		breederReportColumnData.add(new HeaderParameterPair("DATE FARROWED", dateFar));
 		breederReportColumnData.add(new HeaderParameterPair("TOTAL BIRTH", birth));
 		breederReportColumnData.add(new HeaderParameterPair("LIVE BIRTH", liveBirth));
+		breederReportColumnData.add(new HeaderParameterPair("MM", mm));
+		breederReportColumnData.add(new HeaderParameterPair("SB", sb));
 		breederReportColumnData.add(new HeaderParameterPair("COMMENTS", comments));
 
 	}

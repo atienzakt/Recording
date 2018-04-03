@@ -84,6 +84,30 @@ public class BreedingReportView {
 		((Text)stage.getScene().lookup("#totalAbortion")).setText(aborts.intValue()+"");
 		((Text)stage.getScene().lookup("#abortionPercent")).setText(abortsPercentage);
 		((Text)stage.getScene().lookup("#unconfirmed")).setText(unconfirmed.intValue()+"");
+		
+		BigDecimal farrowed = BigDecimal.valueOf(filterListDate.stream().filter(br -> null!=FarrowingRecord.findRefNo(br.getRefNo())).count());
+		BigDecimal expecting = BigDecimal.valueOf(filterListDate.stream().filter(br -> ( !SowRecord.isDiseased(br.getSowNo().getSowNo()) && null == FarrowingRecord.findRefNo(br.getRefNo()))).count());
+	
+		List<FarrowingRow> filteredListFarrowing = filterListDate.stream()
+				.filter(br -> null != FarrowingRecord.findRefNo(br.getRefNo()))
+				.map(br -> FarrowingRecord.findRefNo(br.getRefNo()))
+				.collect(Collectors.toList());
+		
+		BigDecimal litterSize = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getTotalFar()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		BigDecimal liveBirth = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getLive()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		BigDecimal mm = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getMm()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		BigDecimal sb = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getSb()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
 	}
 	
 	public void createBreedingBySow(String sowNumber) throws IOException {
@@ -138,6 +162,14 @@ public class BreedingReportView {
 		BigDecimal liveBirth = filteredListFarrowing.stream()
 				.map(x -> new BigDecimal(x.getLive()))
 				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		BigDecimal mm = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getMm()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		BigDecimal sb = filteredListFarrowing.stream()
+				.map(x -> new BigDecimal(x.getSb()))
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
 
 		BigDecimal totalFarrowings = BigDecimal.valueOf(filteredListFarrowing.stream().count());
 
@@ -146,6 +178,10 @@ public class BreedingReportView {
 		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"0.00";
 		
 		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"0.00";
+		
+		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"0.00";
+		
+		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP))+"":"0.00";
 		
 		
 		((Text)stage.getScene().lookup("#totalBreeding")).setText(total.intValue()+"");
@@ -160,7 +196,13 @@ public class BreedingReportView {
 		((Text)stage.getScene().lookup("#parity")).setText(selectedSow.getParity());
 		((Text)stage.getScene().lookup("#aveLitterSize")).setText(aveLitterSize);
 		((Text)stage.getScene().lookup("#aveLiveBirth")).setText(aveLiveBirth);
-		((Text)stage.getScene().lookup("#farrowingPercent")).setText(farrowPercentage);
+		((Text)stage.getScene().lookup("#aveMm")).setText(aveMm);
+		((Text)stage.getScene().lookup("#aveSb")).setText(aveSb);
+		
+		((Text)stage.getScene().lookup("#litterSize")).setText(litterSize.intValue()+"");
+		((Text)stage.getScene().lookup("#liveBirth")).setText(liveBirth.intValue()+"");
+		((Text)stage.getScene().lookup("#mm")).setText(mm.intValue()+"");
+		((Text)stage.getScene().lookup("#sb")).setText(sb.intValue()+"");
 
 	}
 	

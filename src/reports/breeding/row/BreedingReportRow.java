@@ -31,6 +31,8 @@ public class BreedingReportRow {
 	// private SimpleStringProperty ABW;
 	protected SimpleStringProperty staff;
 	protected SimpleStringProperty dateFar;
+	protected SimpleStringProperty mm;
+	protected SimpleStringProperty sb;
 	
 	
 
@@ -60,6 +62,8 @@ public class BreedingReportRow {
 				dateFar = new SimpleStringProperty();
 				birth  = new SimpleStringProperty();
 				liveBirth  = new SimpleStringProperty();
+				mm = new SimpleStringProperty();
+				sb = new SimpleStringProperty();
 			}
 			else if(br.getPregnancyRemarks().equalsIgnoreCase("+AB") 
 					|| br.getPregnancyRemarks().equalsIgnoreCase("-RB") 
@@ -67,11 +71,15 @@ public class BreedingReportRow {
 				dateFar = new SimpleStringProperty("N/A");
 				birth  = new SimpleStringProperty("N/A");
 				liveBirth  = new SimpleStringProperty("N/A");
+				mm = new SimpleStringProperty("N/A");
+				sb = new SimpleStringProperty("N/A");
 			}
 			else {
 				dateFar = new SimpleStringProperty("ERROR");
 				birth  = new SimpleStringProperty("ERROR");
 				liveBirth  = new SimpleStringProperty("ERROR");
+				mm = new SimpleStringProperty("ERROR");
+				sb = new SimpleStringProperty("ERROR");
 			}
 		}
 		else {
@@ -79,11 +87,16 @@ public class BreedingReportRow {
 				dateFar = new SimpleStringProperty(null == fr.getFarDate()? "N/A":sdf.format(fr.getFarDate()));
 				birth  = new SimpleStringProperty(null == fr.getTotalFar()? "N/A":fr.getTotalFar());
 				liveBirth  = new SimpleStringProperty(null == fr.getLive()? "N/A":fr.getLive());
+				mm  = new SimpleStringProperty(null == fr.getLive()? "N/A":fr.getMm());
+				sb = new SimpleStringProperty(null == fr.getLive()? "N/A":fr.getSb());
 			}
 			else {
 				dateFar = new SimpleStringProperty("ERROR");
 				birth  = new SimpleStringProperty("ERROR");
 				liveBirth  = new SimpleStringProperty("ERROR");
+				mm = new SimpleStringProperty("ERROR");
+				sb = new SimpleStringProperty("ERROR");
+				
 			}
 		}
 		
@@ -136,4 +149,14 @@ public class BreedingReportRow {
 	public String getLiveBirth() {
 		return RemovePoint.remove(liveBirth.get());
 	}
+
+	public String getMm() {
+		return RemovePoint.remove(mm.get());
+	}
+
+	public String getSb() {
+		return RemovePoint.remove(sb.get());
+	}
+	
+	
 }
