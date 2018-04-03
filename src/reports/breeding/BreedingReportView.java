@@ -86,7 +86,10 @@ public class BreedingReportView {
 		((Text)stage.getScene().lookup("#unconfirmed")).setText(unconfirmed.intValue()+"");
 		
 		BigDecimal farrowed = BigDecimal.valueOf(filterListDate.stream().filter(br -> null!=FarrowingRecord.findRefNo(br.getRefNo())).count());
-		BigDecimal expecting = BigDecimal.valueOf(filterListDate.stream().filter(br -> ( !SowRecord.isDiseased(br.getSowNo().getSowNo()) && null == FarrowingRecord.findRefNo(br.getRefNo()))).count());
+		BigDecimal expecting = BigDecimal.valueOf(filterListDate.stream()
+				.filter(br -> ( !SowRecord.isDiseased(br.getSowNo().getSowNo()) 
+						&& null == FarrowingRecord.findRefNo(br.getRefNo())
+						&& br.getPregnancyRemarks().equals("+"))).count());
 	
 		List<FarrowingRow> filteredListFarrowing = filterListDate.stream()
 				.filter(br -> null != FarrowingRecord.findRefNo(br.getRefNo()))
@@ -108,6 +111,16 @@ public class BreedingReportView {
 		BigDecimal sb = filteredListFarrowing.stream()
 				.map(x -> new BigDecimal(x.getSb()))
 				.reduce(BigDecimal.ZERO,BigDecimal::add);
+		
+		String farrowingRate = total.intValue()!=0? dcf.format(farrowed.divide(total,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		
+		((Text)stage.getScene().lookup("#farrowed")).setText(farrowed.intValue()+"");
+		((Text)stage.getScene().lookup("#expecting")).setText(expecting.intValue()+"");
+		((Text)stage.getScene().lookup("#litterSize")).setText(litterSize.intValue()+"");
+		((Text)stage.getScene().lookup("#liveBirth")).setText(liveBirth.intValue()+"");
+		((Text)stage.getScene().lookup("#mm")).setText(mm.intValue()+"");
+		((Text)stage.getScene().lookup("#sb")).setText(sb.intValue()+"");
+		((Text)stage.getScene().lookup("#farrowingRate")).setText(farrowingRate);
 	}
 	
 	public void createBreedingBySow(String sowNumber) throws IOException {
@@ -241,6 +254,12 @@ public class BreedingReportView {
 		String abortsPercentage = total.intValue()!=0? dcf.format(aborts.divide(total,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
 		
 
+		BigDecimal farrowed = BigDecimal.valueOf(filterListDate.stream().filter(br -> null!=FarrowingRecord.findRefNo(br.getRefNo())).count());
+		BigDecimal expecting = BigDecimal.valueOf(filterListDate.stream()
+				.filter(br -> ( !SowRecord.isDiseased(br.getSowNo().getSowNo()) 
+						&& null == FarrowingRecord.findRefNo(br.getRefNo())
+						&& br.getPregnancyRemarks().equals("+"))).count());
+		
 		List<FarrowingRow> filteredListFarrowing = filterListDate.stream()
 				.filter(br -> null != FarrowingRecord.findRefNo(br.getRefNo()))
 				.map(br -> FarrowingRecord.findRefNo(br.getRefNo()))
@@ -264,13 +283,14 @@ public class BreedingReportView {
 		
 		BigDecimal totalFarrowings = BigDecimal.valueOf(filteredListFarrowing.stream().count());
 		
-		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
+		String aveLitterSize = totalFarrowings.intValue()!=0? (litterSize.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0.00";
 		
-		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0";
+		String aveLiveBirth = totalFarrowings.intValue()!=0? (liveBirth.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0.00";
+		String aveMm = totalFarrowings.intValue()!=0? (mm.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0.00";
 		
-		String alivePercentage = litterSize.intValue() != 0? dcf.format(liveBirth.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
-		String mmPercentage = litterSize.intValue() != 0? dcf.format(mm.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
-		String sbPercentage = litterSize.intValue() != 0? dcf.format(sb.divide(litterSize,4,RoundingMode.HALF_UP).floatValue()*100)+"%":"0.00%";
+		String aveSb = totalFarrowings.intValue()!=0? (sb.divide(totalFarrowings,2,RoundingMode.HALF_UP)).toString():"0.00";
+		
+		
 		
 		((Text)stage.getScene().lookup("#periodFrom1")).setText(DateFormat.formatToString(from));
 		((Text)stage.getScene().lookup("#periodTo1")).setText(DateFormat.formatToString(to));
@@ -283,18 +303,19 @@ public class BreedingReportView {
 		((Text)stage.getScene().lookup("#abortionPercent")).setText(abortsPercentage);
 		((Text)stage.getScene().lookup("#unconfirmed")).setText(unconfirmed.intValue()+"");
 		
-		((Text)stage.getScene().lookup("#periodFrom2")).setText(DateFormat.formatToString(from));
-		((Text)stage.getScene().lookup("#periodTo2")).setText(DateFormat.formatToString(to));
-		((Text)stage.getScene().lookup("#totalFarrow")).setText(totalFarrowings.intValue()+"");
-		((Text)stage.getScene().lookup("#totalLitter")).setText(litterSize.intValue()+"");
-		((Text)stage.getScene().lookup("#totalLive")).setText(liveBirth.intValue()+"");
-		((Text)stage.getScene().lookup("#livePercent")).setText(alivePercentage);
-		((Text)stage.getScene().lookup("#totalMm")).setText(mm.intValue()+"");
-		((Text)stage.getScene().lookup("#mmPercent")).setText(mmPercentage);
-		((Text)stage.getScene().lookup("#totalSb")).setText(sb.intValue()+"");
-		((Text)stage.getScene().lookup("#sbPercent")).setText(sbPercentage);
+		((Text)stage.getScene().lookup("#farrowed")).setText(farrowed.intValue()+"");
+		((Text)stage.getScene().lookup("#expecting")).setText(expecting.intValue()+"");
+		((Text)stage.getScene().lookup("#litterSize")).setText(litterSize.intValue()+"");
+		((Text)stage.getScene().lookup("#liveBirth")).setText(liveBirth.intValue()+"");
+		((Text)stage.getScene().lookup("#mm")).setText(mm.intValue()+"");
+		((Text)stage.getScene().lookup("#sb")).setText(sb.intValue()+"");
+		
 		((Text)stage.getScene().lookup("#aveLitterSize")).setText(aveLitterSize);
 		((Text)stage.getScene().lookup("#aveLiveBirth")).setText(aveLiveBirth);
+		((Text)stage.getScene().lookup("#aveMm")).setText(aveMm);
+		((Text)stage.getScene().lookup("#aveSb")).setText(aveSb);
+
+
 	}
 	
 	
