@@ -14,9 +14,6 @@ import java.util.Optional;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.util.SystemOutLogger;
-import org.joda.time.Days;
-
 import extras.BreedingFarrowingConsistencyChecker;
 import extras.ParityChecker;
 import extras.PregnancyRemarksChecker;
@@ -38,12 +35,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import model.BreedingRow;
-import model.Sow;
 import record.BoarRecord;
 import record.BreedingRecord;
 import record.FarrowingRecord;
@@ -58,7 +54,6 @@ import utils.DateFormat;
 import utils.DatePickerFormatter;
 import utils.FarrowingRecordParserCSV;
 import utils.FromToDatePair;
-import utils.RemovePoint;
 
 /*TODO 
  * 1) implement separate event handler 
@@ -86,6 +81,8 @@ public class MainApplication extends Application implements EventHandler<ActionE
 	@Override
 	public void start(Stage primaryStage) {
 
+		primaryStage.setScene(new Scene(new Label("Loading..."),500,500));
+		primaryStage.show();
 		try {
 			BreedingRecordParserCSV.setup();
 		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
@@ -138,17 +135,18 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		VBox root = new VBox();
 		root.setPadding(new Insets(10));
 		root.setAlignment(Pos.TOP_LEFT);
-		findBreedingBySow = new Button("Find Breeding By Sow");
-		findBreedingByDate = new Button("Find Breeding By Date");
-		findBreedingByBoar = new Button("Find Breeding By Boar");
-		findFarrowingBySow = new Button("Find Farrowing By Sow");
-		findFarrowingByDate = new Button("Find Farrowing By Date");
-		performanceButton = new Button("Breeding Performance");
-		monthlyBreedingReportButton = new Button("Monthly Breeding Report");
-		monthlyFarrowingReportButton = new Button("Monthly Farrowing Report");
-		statusReportButton = new Button("Status Report");
+		root.setSpacing(25);
+		findBreedingBySow = new Button("SOW BREEDING RECORD");
+		findBreedingByDate = new Button("SOW BREEDING RECORD BY PERIOD");
+		findBreedingByBoar = new Button("BOAR BREEDING RECORD");
+		findFarrowingBySow = new Button("SOW FARROWING RECORD");
+		findFarrowingByDate = new Button("SOW FARROWING RECORD BY PERIOD");
+		performanceButton = new Button("BREEDING PERFORMANCE");
+		monthlyBreedingReportButton = new Button("MONTHLY SOW BREEDING RECORD");
+		monthlyFarrowingReportButton = new Button("MONTHLY SOW FARROWING RECORD");
+		statusReportButton = new Button("DIRECTORY OF SOWS");
 		root.getChildren().addAll(findBreedingBySow, findBreedingByDate, findFarrowingBySow,findBreedingByBoar, findFarrowingByDate,
-				performanceButton,monthlyBreedingReportButton,monthlyFarrowingReportButton,statusReportButton);
+				monthlyBreedingReportButton,monthlyFarrowingReportButton,statusReportButton,performanceButton);
 
 		findFarrowingBySow.setOnAction(this);
 
@@ -168,7 +166,8 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		
 		statusReportButton.setOnAction(this);
 		
-		Scene scene = new Scene(root, 750, 750);
+		Scene scene = new Scene(root, 500, 500);
+
 		stage.setScene(scene);
 		stage.show();
 	}

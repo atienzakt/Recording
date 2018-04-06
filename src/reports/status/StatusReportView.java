@@ -27,6 +27,7 @@ public class StatusReportView {
 		
 		((StatusViewController) loader.getController()).setContents(data);
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show();
 	}
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -33,7 +32,7 @@ public class BreedingRecordParserCSV {
 	public static void setup() throws EncryptedDocumentException, InvalidFormatException, IOException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Workbook wb = WorkbookFactory.create(new File("Breeding.xlsx"));
+		Workbook wb = WorkbookFactory.create(new FileInputStream("Breeding.xlsx"));
 		Sheet sheet = wb.getSheetAt(0);
 		Iterator<Row> rows = sheet.rowIterator();
 		if (rows.hasNext()) {

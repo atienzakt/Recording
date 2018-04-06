@@ -40,6 +40,7 @@ public class FarrowingReportView {
 		Parent root = FXMLLoader
 				.load(getClass().getClassLoader().getResource("reports/farrowing/FarrowingReportSow.fxml"));
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show();
 		((Label) stage.getScene().lookup("#FarrowReportSow")).setText("SOW NO: "+selectedSow.getSowNo());
 		((Label) stage.getScene().lookup("#FarrowReportBreed")).setText("Breed:    "+selectedSow.getBreed());
@@ -111,6 +112,7 @@ public class FarrowingReportView {
 		Parent root = FXMLLoader
 				.load(getClass().getClassLoader().getResource("reports/farrowing/FarrowingReportDate.fxml"));
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show();
 		((Label) stage.getScene().lookup("#FarrowReportStartEnd"))
 				.setText("Farrowing Period:   " + DateFormat.formatToString(from) + "   -   " + DateFormat.formatToString(to));

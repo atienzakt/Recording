@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ public class FarrowingRecordParserCSV {
 
 	public static void setup() throws IOException, EncryptedDocumentException, InvalidFormatException {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Workbook wb = WorkbookFactory.create(new File("Farrowing.xlsx"));
+		Workbook wb = WorkbookFactory.create(new FileInputStream("Farrowing.xlsx"));
 		Sheet sheet = wb.getSheetAt(0);
 		Iterator<Row> rows = sheet.rowIterator();
 		if (rows.hasNext()) {

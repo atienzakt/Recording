@@ -48,6 +48,7 @@ public class BreedingReportView {
 		Parent root = FXMLLoader
 				.load(getClass().getClassLoader().getResource("reports/breeding/BreedingReportDate.fxml"));
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show();
 		((Label) stage.getScene().lookup("#BreedReportStartEnd"))
 				.setText("Breeding Period:  " + DateFormat.formatToString(from) + "  -  " + DateFormat.formatToString(to));
@@ -131,6 +132,7 @@ public class BreedingReportView {
 		Parent root = FXMLLoader
 				.load(getClass().getClassLoader().getResource("reports/breeding/BreedingReportSow.fxml"));
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show(); // this is important for multiple windows
 
 		((Label) stage.getScene().lookup("#BreedReportSow")).setText("Sow No: " + sowNumber);
@@ -224,6 +226,7 @@ public class BreedingReportView {
 		Parent root = FXMLLoader
 				.load(getClass().getClassLoader().getResource("reports/breeding/BreedingReportBoar.fxml"));
 		stage.setScene(new Scene(root));
+		stage.setMaximized(true);
 		stage.show();
 		((Label) stage.getScene().lookup("#BreedReportStartEnd"))
 				.setText("Breeding Period:  " + DateFormat.formatToString(from) + "  -  " + DateFormat.formatToString(to));

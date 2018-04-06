@@ -47,102 +47,102 @@
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                  <children>
-                                    <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Breeding:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
+                                    <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Breeding:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="totalBreeding" layoutX="191.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="25.0">
+                                    <Text id="totalBreeding" layoutX="191.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="35.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Pregnant  /  Rate:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+                                    <Text layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Positive    /  Rate:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="70.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Rebreed   /  Rate:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+                                    <Text layoutX="43.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Negative  /  Rate:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="95.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Abortion  /  Rate:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
+                                    <Text layoutX="43.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Abortion  /  Rate:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="120.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unconfirmed Pregnancy:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="145.0">
+                                    <Text layoutX="43.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unconfirmed Pregnancy:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="155.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="totalPregnant" layoutX="173.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="60.0">
+                                    <Text id="totalPregnant" layoutX="173.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="70.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="totalRebreed" layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="85.0">
+                                    <Text id="totalRebreed" layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="95.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="totalAbortion" layoutX="293.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="110.0">
+                                    <Text id="totalAbortion" layoutX="293.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="120.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="unconfirmed" layoutX="293.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="145.0">
+                                    <Text id="unconfirmed" layoutX="293.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="155.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="110.0">
+                                    <Text layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="120.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="313.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="60.0">
+                                    <Text layoutX="313.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="70.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="313.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="85.0">
+                                    <Text layoutX="313.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="95.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="pregnantPercent" layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="60.0">
+                                    <Text id="pregnantPercent" layoutX="293.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="70.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="rebreedPercent" layoutX="343.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="85.0">
+                                    <Text id="rebreedPercent" layoutX="343.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="95.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="abortionPercent" layoutX="343.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="110.0">
+                                    <Text id="abortionPercent" layoutX="343.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="65.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="120.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="For Period:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Period:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="periodFrom1" strokeType="OUTSIDE" strokeWidth="0.0" text="00/00/0000" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="0.0">
+                                    <Text id="periodFrom1" strokeType="OUTSIDE" strokeWidth="0.0" text="00/00/0000" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  -  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="0.0">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="  -  " textAlignment="CENTER" wrappingWidth="30.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text id="periodTo1" strokeType="OUTSIDE" strokeWidth="0.0" text="00/00/0000" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="0.0">
+                                    <Text id="periodTo1" strokeType="OUTSIDE" strokeWidth="0.0" text="00/00/0000" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
@@ -173,17 +173,17 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="23.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Live Birth:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+                                    <Text layoutX="23.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Live Birth:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="85.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Mummified:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
+                                    <Text layoutX="43.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Mummified:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="110.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="43.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Still Born:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="135.0">
+                                    <Text layoutX="43.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Still Born:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="135.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
@@ -193,37 +193,37 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="0.0">
+                                    <Text id="farrowed" layoutX="23.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="173.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="25.0">
+                                    <Text id="expecting" layoutX="173.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="RIGHT" wrappingWidth="30.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="25.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="173.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="60.0">
+                                    <Text id="litterSize" layoutX="173.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="60.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="223.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="85.0">
+                                    <Text id="liveBirth" layoutX="223.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="85.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="223.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="110.0">
+                                    <Text id="mm" layoutX="223.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="110.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="223.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="135.0">
+                                    <Text id="sb" layoutX="223.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000" textAlignment="RIGHT" wrappingWidth="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="135.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="223.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="70.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="170.0">
+                                    <Text id="farrowingRate" layoutX="223.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.00%" textAlignment="RIGHT" wrappingWidth="70.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="170.0">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
