@@ -32,9 +32,11 @@ public class StatusChecker {
 			}
 			
 			if(null == latest) {
-				System.out.println("Error in setting status for Sow: "+s.getSowNo());
+				System.out.println("No Breeding Record for: "+s.getSowNo());
+				s.setStatus("Inactive");
+				continue;
 			}
-			
+
 			
 //			DateTime now = new DateTime();
 //			DateTime due = new DateTime(latest.getFarrowDueDate());

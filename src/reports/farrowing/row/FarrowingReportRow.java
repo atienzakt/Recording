@@ -8,6 +8,7 @@ import org.joda.time.Days;
 
 import javafx.beans.property.SimpleStringProperty;
 import model.FarrowingRow;
+import record.BreedingRecord;
 import record.SowRecord;
 import utils.RemovePoint;
 
@@ -65,7 +66,7 @@ public class FarrowingReportRow {
 				? ""
 				: Days.daysBetween(new DateTime(fr.getBreedingRow().getDateBreed()), new DateTime(fr.getFarDate()))
 						.getDays() + " days");
-		boarUsed = new SimpleStringProperty(fr.getBoarUsed().stream()
+		boarUsed = new SimpleStringProperty(BreedingRecord.findRefNo(fr.getRefNo()).getBoarUsed().stream()
 				.map(br -> br.getBoarNo())
 				.collect(Collectors.joining("/")));
 	}

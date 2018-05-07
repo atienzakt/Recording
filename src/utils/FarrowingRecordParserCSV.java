@@ -78,7 +78,7 @@ public class FarrowingRecordParserCSV {
 			List<Boar> usedBoar = new ArrayList<>();
 			for(String boars: boarNo.split("/|\\\\"))
 			{
-				if (BoarRecord.getBoar(boars) == null) {
+				if (BoarRecord.getBoar(boars) == null && !boars.trim().equals("")) {
 					System.out.println("Ref No: "+ refNo + " || Boar Has no Reference In Breeding");
 					BoarRecord.boarList.add(new Boar(boars));
 				}
@@ -146,10 +146,11 @@ public class FarrowingRecordParserCSV {
 					|| remarks.toLowerCase().contains("mortal")) && !SowRecord.isDiseased(sowNo)) {
 				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
 				Sow deadSow =  SowRecord.getSow(sowNo);
-				if(remarks.toLowerCase().contains("cull") && deadSow.getStatus()== null) {
+				if(remarks.toLowerCase().contains("cull") && (deadSow.getStatus()== null )) {
 					deadSow.setStatus("Cull");
 				}
-				else if( (remarks.toLowerCase().contains("disease") || remarks.toLowerCase().contains("mortal")) && deadSow.getStatus()== null) {
+				else if( (remarks.toLowerCase().contains("disease") || remarks.toLowerCase().contains("mortal")) 
+						&& (deadSow.getStatus()== null)) {
 					deadSow.setStatus("Deceased");
 				}
 				else if(null!=deadSow.getStatus()) {

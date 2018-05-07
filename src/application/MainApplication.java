@@ -18,7 +18,7 @@ import extras.BreedingFarrowingConsistencyChecker;
 import extras.ParityChecker;
 import extras.PregnancyRemarksChecker;
 import extras.StatusChecker;
-import extras.WeanChecker;
+import extras.DurationChecker;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -54,6 +54,7 @@ import utils.DateFormat;
 import utils.DatePickerFormatter;
 import utils.FarrowingRecordParserCSV;
 import utils.FromToDatePair;
+import utils.SowParser;
 
 /*TODO 
  * 1) implement separate event handler 
@@ -83,7 +84,9 @@ public class MainApplication extends Application implements EventHandler<ActionE
 
 		primaryStage.setScene(new Scene(new Label("Loading..."),500,500));
 		primaryStage.show();
+		
 		try {
+			SowParser.setup();
 			BreedingRecordParserCSV.setup();
 		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
 			Alert a = new Alert(AlertType.ERROR);
@@ -124,7 +127,7 @@ public class MainApplication extends Application implements EventHandler<ActionE
 		ParityChecker.parityCheck();
 		StatusChecker.setAndCheckStatus();
 		BreedingFarrowingConsistencyChecker.check();
-		WeanChecker.check();
+		DurationChecker.check();
 
 		initUI(primaryStage);
 		
@@ -317,8 +320,10 @@ public class MainApplication extends Application implements EventHandler<ActionE
 					start.setTime(BreedingRecord.breedingList.get(0).getDateBreed());
 				else if( source == monthlyFarrowingReportButton)
 					start.setTime(FarrowingRecord.farrowingList.get(0).getFarDate());
-					
+				start.set(Calendar.DATE, 1);	
+				
 				Calendar end = Calendar.getInstance();
+				
 				while(start.before(end)) {
 					Calendar toAdd = Calendar.getInstance();
 					toAdd.setTime(start.getTime());

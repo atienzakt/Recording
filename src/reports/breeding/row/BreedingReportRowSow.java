@@ -34,10 +34,10 @@ public class BreedingReportRowSow extends BreedingReportRow {
 			}
 		}
 		else {
-			if(br.getPregnancyRemarks().equals("+")){
+			if(br.getPregnancyRemarks().equals("+") && !SowRecord.isDiseased(br.getSowNo().getSowNo())){
 				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"":sdf.format(fr.getWeanDate()));
 			}
-			else if(fr.getComments().toLowerCase().contains("fource") || fr.getComments().toLowerCase().contains("dry")) {
+			else if(fr.getComments().toLowerCase().contains("fource") || fr.getComments().toLowerCase().contains("dry") || SowRecord.isDiseased(br.getSowNo().getSowNo())) {
 				dateWean  = new SimpleStringProperty(null == fr.getWeanDate()?"N/A":sdf.format(fr.getWeanDate()));	
 			}
 			else {

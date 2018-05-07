@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import model.Sow;
 import record.SowRecord;
 import utils.DateFormat;
 
@@ -199,7 +201,13 @@ public class StatusViewController{
 						lastWeanFilter.textProperty(),
 						statusFilter.textProperty(),
 						firstParityFilter.textProperty()));
-		table.setItems(filteredData);
+		SortedList<StatusRow> wrapped = new SortedList(filteredData);
+		wrapped.comparatorProperty().bind(table.comparatorProperty());
+		table.setItems(wrapped);
+		
+		
+		
+		
 //		totalActiveSows.setText(data.size()+"");
 //		
 //		filteredData.predicateProperty().bind((Bindings.createObjectBinding(new Callable<>() {
@@ -219,7 +227,7 @@ public class StatusViewController{
 //			}
 //		},noFilter.textProperty())));
 		BigDecimal totalActive = BigDecimal.valueOf(data.stream()
-				.filter(row -> !SowRecord.isDiseased(row.getSowNo())).count());
+				.filter(row -> !SowRecord.isDiseased(row.getSowNo()) && !SowRecord.getSow(row.getSowNo()).getStatus().toLowerCase().contains("inactive")).count());
 		
 		BigDecimal pregnant = BigDecimal.valueOf(data.stream()
 				.filter(row -> !SowRecord.isDiseased(row.getSowNo()))
@@ -264,7 +272,7 @@ public class StatusViewController{
 		drySowRate.setText(drySowPercentage);
 		
 		BigDecimal totalInactive = BigDecimal.valueOf(data.stream()
-				.filter(row -> SowRecord.isDiseased(row.getSowNo())).count());
+				.filter(row -> SowRecord.isDiseased(row.getSowNo()) || SowRecord.getSow(row.getSowNo()).getStatus().toLowerCase().contains("inactive")).count());
 		BigDecimal deceased = BigDecimal.valueOf(data.stream()
 				.filter(row -> SowRecord.isDiseased(row.getSowNo()))
 				.filter(row -> row.getStatus().toLowerCase().contains("deceased") || row.getStatus().toLowerCase().contains("disease") ).count());
@@ -272,9 +280,10 @@ public class StatusViewController{
 				.filter(row -> SowRecord.isDiseased(row.getSowNo()))
 				.filter(row -> row.getStatus().toLowerCase().contains("cull")).count());
 		BigDecimal gilt = BigDecimal.valueOf(data.stream()
-				.filter(row -> row.getStatus().toLowerCase().contains("gilt")).count());
+				.filter(row -> row.getStatus().toLowerCase().contains("inactive")).count());
 		BigDecimal others = BigDecimal.valueOf(data.stream()
-				.filter(row -> row.getStatus().toLowerCase().contains("others")).count());
+				.filter(row -> SowRecord.isDiseased(row.getSowNo()))
+				.filter(row -> row.getStatus().toLowerCase().contains("heat")).count());
 		totalInactiveSows.setText(totalInactive.intValue()+"");
 		deceasedCount.setText(deceased.intValue()+"");
 		cullCount.setText(cull.intValue()+"");
@@ -427,7 +436,7 @@ public class StatusViewController{
 					&& ( (null == row.getFirstParity() && ("N/A".toLowerCase().contains(firstParityFilter.getText().toLowerCase()) ))
 					|| (null != row.getFirstParity() && DateFormat.formatToString(row.getFirstParity().toDate()).toLowerCase().contains(firstParityFilter.getText().toLowerCase()))));
 		
-			filteredData.setPredicate(new Predicate<>() {
+			filteredData.setPredicate(new Predicate<StatusRow>() {
 
 				
 

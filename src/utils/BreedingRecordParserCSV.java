@@ -219,14 +219,15 @@ public class BreedingRecordParserCSV {
 			if(!status.trim().equals("") && !SowRecord.isDiseased(sowNo)) {
 				SowRecord.diseasedSowList.add(SowRecord.getSow(sowNo));
 				Sow deadSow =  SowRecord.getSow(sowNo);
-				if(status.toLowerCase().contains("cull") && deadSow.getStatus()== null) {
+				if(status.toLowerCase().contains("cull") && (deadSow.getStatus()== null)) {
 					deadSow.setStatus("Cull");
 				}
-				else if( (status.toLowerCase().contains("disease") || status.toLowerCase().contains("mortal")) && deadSow.getStatus()== null) {
+				else if( (status.toLowerCase().contains("disease") || status.toLowerCase().contains("mortal")) 
+						&& (deadSow.getStatus()== null)) {
 					deadSow.setStatus("Deceased");
 				}
 				else if(null!=deadSow.getStatus()) {
-					System.out.println("Farrowing Duplicate Row Tagged as deceased, not a big concern: "+refNo + " || For Sow: "+sowNo);
+					System.out.println("Breeding Duplicate Row Tagged as deceased, not a big concern: "+refNo + " || For Sow: "+sowNo);
 				}
 			}
 			BreedingRecord.breedingList.add(br);
