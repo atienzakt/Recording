@@ -23,7 +23,8 @@ public class DurationChecker {
 			Calendar estimatedWean = Calendar.getInstance();
 			estimatedWean.setTime(fr.getFarDate());
 			estimatedWean.add(Calendar.DATE, 35);
-			if(fr.getSowNo().getStatus().equalsIgnoreCase("lactating") && fr.getWeanDate() == null && estimatedWean.before(today) && !fr.getComments().toLowerCase().contains("fource")) {
+			if(fr.getSowNo().getStatus().equalsIgnoreCase("lactating") && fr.getWeanDate() == null && estimatedWean.before(today) 
+					&& !fr.getComments().toLowerCase().contains("fource")) {
 				System.out.println("Long Lactating Check: "+fr.getRefNo());
 			}
 		}

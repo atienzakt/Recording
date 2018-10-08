@@ -33,9 +33,7 @@ public class PregnancyRemarksChecker {
 					}
 					Interval interval = new Interval(breedingList.get(i).getDateBreed().getTime(), breedingList.get(i-1).getDateBreed().getTime());
 					if(Days.daysIn(interval).getDays()<100) {
-						System.out.println("Sow No: " + s.getSowNo());
-						System.out.println("Days Gap: "+Days.daysIn(interval).getDays());
-						
+						System.out.println("Confirmation of Pregnancy Status Check Sow No: " + s.getSowNo()+" Days Gap: "+Days.daysIn(interval).getDays());						
 					}
 				
 				}

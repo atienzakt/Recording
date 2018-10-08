@@ -19,30 +19,39 @@ public class StatusChecker {
 		System.out.println("Status Checker");
 				
 		Collections.reverse(BreedingRecord.breedingList);
+		Collections.reverse(FarrowingRecord.farrowingList);
 		for(Sow s:SowRecord.sowList.stream()
 				.filter(sow -> !SowRecord.isDiseased(sow.getSowNo()))
 				.collect(Collectors.toList())) {
-			BreedingRow latest= null;
+			BreedingRow latestBreed= null;
 			
 			for(BreedingRow b:BreedingRecord.breedingList) {
 				if(b.getSowNo().getSowNo().equals(s.getSowNo())) {
-					latest = b;
+					latestBreed = b;
 					break;
 				}
 			}
-			
-			if(null == latest) {
+						
+			if(null == latestBreed) {
 				System.out.println("No Breeding Record for: "+s.getSowNo());
 				s.setStatus("Inactive");
 				continue;
+			}
+			
+			FarrowingRow lastestFarrow = null;
+			for(FarrowingRow f: FarrowingRecord.farrowingList) {
+				if(f.getSowNo().getSowNo().equals(s.getSowNo())) {
+					lastestFarrow = f;
+					break;
+				}
 			}
 
 			
 //			DateTime now = new DateTime();
 //			DateTime due = new DateTime(latest.getFarrowDueDate());
-			FarrowingRow farrow = FarrowingRecord.findRefNo(latest.getRefNo());
+			FarrowingRow farrow = FarrowingRecord.findRefNo(latestBreed.getRefNo());
 			
-			if(latest.getPregnancyRemarks().equals("+")) {
+			if(latestBreed.getPregnancyRemarks().equals("+")) {
 								
 //				//When not farrowed and due date - now is within 14 to -5 days is expecting
 //				if( (Days.daysBetween(now.toLocalDate(), due.toLocalDate()).getDays() <=14 
@@ -57,15 +66,15 @@ public class StatusChecker {
 //					s.setStatus("Pregnant");
 //				}
 				//Not yet farrowed and + is pregnant
-				if( null == farrow) {
+				if( null == farrow ) {
 					s.setStatus("Pregnant");
 				}
 				//Farrowed but not weaned is lactating
-				else if( null != farrow && (null == latest.getDateWeaned() || null == farrow.getWeanDate())) {
+				else if( null != farrow && (null == latestBreed.getDateWeaned() || null == farrow.getWeanDate())) {
 					s.setStatus("Lactating");
 				}
 				//Farrowed but weaned is dry sow
-				else if( null != farrow && (null != latest.getDateWeaned() || null != farrow.getWeanDate())) {
+				else if( null != farrow && (null != latestBreed.getDateWeaned() || null != farrow.getWeanDate())) {
 					s.setStatus("Dry Sow");
 				}
 				else {
@@ -73,16 +82,24 @@ public class StatusChecker {
 				}
 				
 			}
-			else if ( null == farrow && (latest.getPregnancyRemarks().equals("+AB") || latest.getPregnancyRemarks().equals("-RB"))) {
+			else if ( null == farrow && (latestBreed.getPregnancyRemarks().equals("+AB") || latestBreed.getPregnancyRemarks().equals("-RB"))) {
 				s.setStatus("Breedable");
 			}
-			else if (null == farrow && (latest.getPregnancyRemarks().trim().equals(""))) {
+			else if (null == farrow && (latestBreed.getPregnancyRemarks().trim().equals(""))) {
 				s.setStatus("Inseminated");
 			}
 			else {
 				System.out.println("Check on: "+s.getSowNo());
 			}
+			
+			
+			if( (null == farrow && (null != lastestFarrow && null == lastestFarrow.getWeanDate() 
+					&& !lastestFarrow.getComments().toLowerCase().contains("fource")))) {
+				System.out.println("Missing Wean Date Check on: "+lastestFarrow.getRefNo() + " || "+lastestFarrow.getSowNo().getSowNo());
+			}
+
 		}
 		Collections.reverse(BreedingRecord.breedingList);
+		Collections.reverse(FarrowingRecord.farrowingList);
 	}
 }
