@@ -94,7 +94,7 @@ public class StatusChecker {
 			
 			
 			if( (null == farrow && (null != lastestFarrow && null == lastestFarrow.getWeanDate() 
-					&& !lastestFarrow.getComments().toLowerCase().contains("fource")))) {
+					&& !lastestFarrow.getComments().toLowerCase().contains("fource") && !lastestFarrow.getComments().toLowerCase().contains("mma") ))) {
 				System.out.println("Missing Wean Date Check on: "+lastestFarrow.getRefNo() + " || "+lastestFarrow.getSowNo().getSowNo());
 			}
 
